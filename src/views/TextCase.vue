@@ -220,23 +220,6 @@ const clearText = () => {
   notify.success('Texto limpo!')
 }
 
-const loadExample1 = () => {
-  inputText.value = 'Olá, mundo! este é um exemplo de texto simples.'
-  notify.success('Exemplo 1 carregado!')
-}
-
-const loadExample2 = () => {
-  inputText.value = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.`
-  notify.success('Exemplo 2 carregado!')
-}
-
-const loadExample3 = () => {
-  inputText.value = `Esta é a primeira sentença. esta é a segunda. e esta é a terceira! 
-você pode converter cada sentença separadamente.`
-  notify.success('Exemplo 3 carregado!')
-}
 </script>
 
 <style scoped></style>

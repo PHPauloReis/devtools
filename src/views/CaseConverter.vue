@@ -84,38 +84,6 @@
       </div>
     </div>
 
-    <!-- Quick Examples -->
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-dark-800 border border-dark-700 rounded-lg p-4">
-        <h3 class="text-sm font-semibold text-white mb-3">Exemplo 1</h3>
-        <button
-          @click="loadExample1"
-          class="text-xs bg-dark-900 hover:bg-dark-700 text-gray-300 px-3 py-2 rounded transition-colors w-full"
-        >
-          hello world
-        </button>
-      </div>
-
-      <div class="bg-dark-800 border border-dark-700 rounded-lg p-4">
-        <h3 class="text-sm font-semibold text-white mb-3">Exemplo 2</h3>
-        <button
-          @click="loadExample2"
-          class="text-xs bg-dark-900 hover:bg-dark-700 text-gray-300 px-3 py-2 rounded transition-colors w-full"
-        >
-          user_profile_data
-        </button>
-      </div>
-
-      <div class="bg-dark-800 border border-dark-700 rounded-lg p-4">
-        <h3 class="text-sm font-semibold text-white mb-3">Exemplo 3</h3>
-        <button
-          @click="loadExample3"
-          class="text-xs bg-dark-900 hover:bg-dark-700 text-gray-300 px-3 py-2 rounded transition-colors w-full"
-        >
-          get-user-data
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -212,20 +180,6 @@ const clearText = () => {
   notify.success('Texto limpo!')
 }
 
-const loadExample1 = () => {
-  inputText.value = 'hello world'
-  notify.success('Exemplo 1 carregado!')
-}
-
-const loadExample2 = () => {
-  inputText.value = 'user_profile_data'
-  notify.success('Exemplo 2 carregado!')
-}
-
-const loadExample3 = () => {
-  inputText.value = 'get-user-data'
-  notify.success('Exemplo 3 carregado!')
-}
 </script>
 
 <style scoped></style>
