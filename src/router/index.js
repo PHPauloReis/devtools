@@ -6,6 +6,7 @@ import WordCounter from '@/views/WordCounter.vue'
 import CaseConverter from '@/views/CaseConverter.vue'
 import TextCase from '@/views/TextCase.vue'
 import Base64Encode from '@/views/Base64Encode.vue'
+import Base64Decode from '@/views/Base64Decode.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -43,7 +44,7 @@ const router = createRouter({
         },
         {
           path: 'base64-decode',
-          component: ComingSoon
+          component: Base64Decode
         },
         // Validation Tools
         {
