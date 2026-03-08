@@ -80,6 +80,21 @@
           </p>
         </RouterLink>
 
+        <RouterLink
+          to="/strip-tags"
+          class="card group hover:shadow-lg hover:shadow-orange-600/20"
+        >
+          <div class="flex items-start justify-between mb-4">
+            <span class="text-4xl">🧹</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+            Remover Tags
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Remova tags HTML, XML e outras marcações
+          </p>
+        </RouterLink>
+
         <!-- Base64 Tools Section -->
         <div class="col-span-full mt-8">
           <h2 class="text-2xl font-bold text-white mb-4">🔐 Ferramentas Base64</h2>

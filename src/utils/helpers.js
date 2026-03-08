@@ -60,6 +60,20 @@ export const toSlug = (str) => {
     .replace(/^-+|-+$/g, '') // Remove hífens nas extremidades
 }
 
+// Remove tags HTML, XML, etc.
+export const stripTags = (str, allowedTags = '') => {
+  if (allowedTags === '') {
+    // Remove todas as tags
+    return str.replace(/<[^>]*>/g, '')
+  } else {
+    // Remove tags não permitidas
+    const allowedTagsArray = allowedTags.split(',').map(tag => tag.trim().toLowerCase())
+    return str.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, (match, tag) => {
+      return allowedTagsArray.includes(tag.toLowerCase()) ? match : ''
+    })
+  }
+}
+
 // Copia texto para clipboard
 export const copyToClipboard = async (text) => {
   try {
@@ -317,6 +331,7 @@ export default {
   toUpperSnakeCase,
   toTitleCase,
   toSlug,
+  stripTags,
 
   // Arquivo
   copyToClipboard,

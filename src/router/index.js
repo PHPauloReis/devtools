@@ -12,6 +12,7 @@ import XmlValidator from '@/views/XmlValidator.vue'
 import RegexTester from '@/views/RegexTester.vue'
 import CpfGenerator from '@/views/CpfGenerator.vue'
 import CnpjGenerator from '@/views/CnpjGenerator.vue'
+import StripTags from '@/views/StripTags.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -41,6 +42,10 @@ const router = createRouter({
         {
           path: 'text-case',
           component: TextCase
+        },
+        {
+          path: 'strip-tags',
+          component: StripTags
         },
         // Base64 Tools
         {
