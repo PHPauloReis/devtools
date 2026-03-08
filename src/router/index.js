@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import TextCounter from '@/views/TextCounter.vue'
 import WordCounter from '@/views/WordCounter.vue'
 import CaseConverter from '@/views/CaseConverter.vue'
+import TextCase from '@/views/TextCase.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -32,7 +33,7 @@ const router = createRouter({
         },
         {
           path: 'text-case',
-          component: ComingSoon
+          component: TextCase
         },
         // Base64 Tools
         {

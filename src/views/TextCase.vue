@@ -2,39 +2,39 @@
   <div class="max-w-5xl mx-auto">
     <!-- Main Card -->
     <div class="card">
-      <h1 class="text-3xl font-bold text-white mb-2">Conversor de Case</h1>
-      <p class="text-gray-400 mb-8">Converta texto entre diferentes tipos de formatação</p>
+      <h1 class="text-3xl font-bold text-white mb-2">Maiúscula / Minúscula</h1>
+      <p class="text-gray-400 mb-8">Converta texto entre diferentes tipos de capitalização</p>
 
       <!-- Input Area -->
       <div class="mb-6">
         <label class="block text-sm font-semibold text-gray-300 mb-3">
-          Digite o texto a ser convertido:
+          Digite ou cole o texto aqui:
         </label>
         <textarea
           v-model="inputText"
           placeholder="Digite seu texto aqui..."
           class="w-full h-40 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
         ></textarea>
+        <div class="text-right text-xs text-gray-400 mt-2">
+          {{ inputText.length }} caracteres
+        </div>
       </div>
 
       <!-- Select Case Type -->
       <div class="mb-8">
         <label class="block text-sm font-semibold text-gray-300 mb-3">
-          Selecione o tipo de formatação:
+          Selecione o tipo de conversão:
         </label>
         <select
           v-model="selectedCase"
           class="w-full bg-dark-900 border border-dark-700 rounded-lg p-4 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer"
         >
-          <option value="camelCase">camelCase - helloWorld</option>
-          <option value="snakeCase">snake_case - hello_world</option>
-          <option value="kebabCase">kebab-case - hello-world</option>
-          <option value="pascalCase">PascalCase - HelloWorld</option>
-          <option value="upperSnakeCase">UPPER_SNAKE_CASE - HELLO_WORLD</option>
-          <option value="titleCase">Title Case - Hello World</option>
-          <option value="uppercase">UPPERCASE - HELLO WORLD</option>
-          <option value="lowercase">lowercase - hello world</option>
-          <option value="reversed">Invertido - dlrow olleH</option>
+          <option value="uppercase">TUDO MAIÚSCULA</option>
+          <option value="lowercase">tudo minúscula</option>
+          <option value="capitalize">Primeira Letra Maiúscula</option>
+          <option value="sentence">Primeira De Cada Sentença</option>
+          <option value="toggle">Inverter Maiúscula/Minúscula</option>
+          <option value="titlecase">Title Case - Primeira De Cada Palavra</option>
         </select>
       </div>
 
@@ -44,8 +44,24 @@
           Resultado ({{ caseNames[selectedCase] }}):
         </label>
         <div class="bg-dark-900 border-2 border-blue-600/30 rounded-lg p-6">
-          <div class="bg-dark-800 rounded p-4 font-mono text-lg text-blue-400 break-all min-h-20 flex items-center">
+          <div class="bg-dark-800 rounded p-4 font-mono text-lg text-blue-400 break-words min-h-20 flex items-center whitespace-pre-wrap">
             {{ convertedText }}
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <div class="bg-dark-900 rounded-lg p-3 border border-dark-700">
+            <p class="text-gray-400 text-xs mb-1">Texto Original</p>
+            <p class="text-white font-semibold text-sm">{{ inputText.length }} caracteres</p>
+          </div>
+          <div class="bg-dark-900 rounded-lg p-3 border border-dark-700">
+            <p class="text-gray-400 text-xs mb-1">Resultado</p>
+            <p class="text-blue-400 font-semibold text-sm">{{ convertedText.length }} caracteres</p>
+          </div>
+          <div class="bg-dark-900 rounded-lg p-3 border border-dark-700">
+            <p class="text-gray-400 text-xs mb-1">Mudanças</p>
+            <p class="text-green-400 font-semibold text-sm">{{ changesCount }}%</p>
           </div>
         </div>
 
@@ -84,51 +100,11 @@
       </div>
     </div>
 
-    <!-- Quick Examples -->
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-dark-800 border border-dark-700 rounded-lg p-4">
-        <h3 class="text-sm font-semibold text-white mb-3">Exemplo 1</h3>
-        <button
-          @click="loadExample1"
-          class="text-xs bg-dark-900 hover:bg-dark-700 text-gray-300 px-3 py-2 rounded transition-colors w-full"
-        >
-          hello world
-        </button>
-      </div>
-
-      <div class="bg-dark-800 border border-dark-700 rounded-lg p-4">
-        <h3 class="text-sm font-semibold text-white mb-3">Exemplo 2</h3>
-        <button
-          @click="loadExample2"
-          class="text-xs bg-dark-900 hover:bg-dark-700 text-gray-300 px-3 py-2 rounded transition-colors w-full"
-        >
-          user_profile_data
-        </button>
-      </div>
-
-      <div class="bg-dark-800 border border-dark-700 rounded-lg p-4">
-        <h3 class="text-sm font-semibold text-white mb-3">Exemplo 3</h3>
-        <button
-          @click="loadExample3"
-          class="text-xs bg-dark-900 hover:bg-dark-700 text-gray-300 px-3 py-2 rounded transition-colors w-full"
-        >
-          get-user-data
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import {
-  toCamelCase,
-  toSnakeCase,
-  toKebabCase,
-  toPascalCase,
-  toUpperSnakeCase,
-  toTitleCase,
-} from '@/utils/helpers'
 import { useClipboard, useNotification } from '@/composables'
 
 const inputText = ref('')
@@ -137,44 +113,71 @@ const { copy } = useClipboard()
 const { notify } = useNotification()
 
 const caseNames = {
-  camelCase: 'camelCase',
-  snakeCase: 'snake_case',
-  kebabCase: 'kebab-case',
-  pascalCase: 'PascalCase',
-  upperSnakeCase: 'UPPER_SNAKE_CASE',
-  titleCase: 'Title Case',
-  uppercase: 'UPPERCASE',
-  lowercase: 'lowercase',
-  reversed: 'Invertido',
+  uppercase: 'TUDO MAIÚSCULA',
+  lowercase: 'tudo minúscula',
+  capitalize: 'Primeira Letra Maiúscula',
+  sentence: 'Primeira De Cada Sentença',
+  toggle: 'Inverter Maiúscula/Minúscula',
+  titlecase: 'Title Case - Primeira De Cada Palavra',
 }
 
 const convertedText = computed(() => {
-  const text = inputText.value.trim()
+  const text = inputText.value
 
   if (!text) return ''
 
   switch (selectedCase.value) {
-    case 'camelCase':
-      return toCamelCase(text)
-    case 'snakeCase':
-      return toSnakeCase(text)
-    case 'kebabCase':
-      return toKebabCase(text)
-    case 'pascalCase':
-      return toPascalCase(text)
-    case 'upperSnakeCase':
-      return toUpperSnakeCase(text)
-    case 'titleCase':
-      return toTitleCase(text)
     case 'uppercase':
       return text.toUpperCase()
+
     case 'lowercase':
       return text.toLowerCase()
-    case 'reversed':
-      return text.split('').reverse().join('')
+
+    case 'capitalize':
+      return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+
+    case 'sentence':
+      return text
+        .split(/([.!?]\s+)/)
+        .map((part, index) => {
+          if (index % 2 === 0 && part.trim()) {
+            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+          }
+          return part
+        })
+        .join('')
+
+    case 'toggle':
+      return text
+        .split('')
+        .map(char => {
+          if (char === char.toUpperCase()) return char.toLowerCase()
+          return char.toUpperCase()
+        })
+        .join('')
+
+    case 'titlecase':
+      return text
+        .split(/\s+/)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ')
+
     default:
-      return ''
+      return text
   }
+})
+
+const changesCount = computed(() => {
+  if (inputText.value.length === 0) return 0
+
+  let changes = 0
+  for (let i = 0; i < inputText.value.length; i++) {
+    if (inputText.value[i] !== convertedText.value[i]) {
+      changes++
+    }
+  }
+
+  return Math.round((changes / inputText.value.length) * 100)
 })
 
 const copyResult = async () => {
@@ -191,6 +194,11 @@ const downloadResult = async () => {
     tipo: selectedCase.value,
     saida: convertedText.value,
     timestamp: new Date().toISOString(),
+    stats: {
+      characteresOriginal: inputText.value.length,
+      caracteresResultado: convertedText.value.length,
+      percentualMudanca: changesCount.value,
+    },
   }
 
   const json = JSON.stringify(data, null, 2)
@@ -199,7 +207,7 @@ const downloadResult = async () => {
     'href',
     `data:application/json;charset=utf-8,${encodeURIComponent(json)}`
   )
-  element.setAttribute('download', `case-converter-${Date.now()}.json`)
+  element.setAttribute('download', `text-case-${Date.now()}.json`)
   element.style.display = 'none'
   document.body.appendChild(element)
   element.click()
@@ -213,17 +221,20 @@ const clearText = () => {
 }
 
 const loadExample1 = () => {
-  inputText.value = 'hello world'
+  inputText.value = 'Olá, mundo! este é um exemplo de texto simples.'
   notify.success('Exemplo 1 carregado!')
 }
 
 const loadExample2 = () => {
-  inputText.value = 'user_profile_data'
+  inputText.value = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.`
   notify.success('Exemplo 2 carregado!')
 }
 
 const loadExample3 = () => {
-  inputText.value = 'get-user-data'
+  inputText.value = `Esta é a primeira sentença. esta é a segunda. e esta é a terceira! 
+você pode converter cada sentença separadamente.`
   notify.success('Exemplo 3 carregado!')
 }
 </script>
