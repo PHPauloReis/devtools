@@ -139,21 +139,6 @@
         </RouterLink>
 
         <RouterLink
-          to="/json-formatter"
-          class="card group hover:shadow-lg hover:shadow-yellow-600/20"
-        >
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">✨</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">
-            Formatar JSON
-          </h3>
-          <p class="text-gray-400 text-sm">
-            Formate e identar JSON com prettify
-          </p>
-        </RouterLink>
-
-        <RouterLink
           to="/xml-validator"
           class="card group hover:shadow-lg hover:shadow-red-600/20"
         >
@@ -165,21 +150,6 @@
           </h3>
           <p class="text-gray-400 text-sm">
             Valide a estrutura de documentos XML
-          </p>
-        </RouterLink>
-
-        <RouterLink
-          to="/xml-formatter"
-          class="card group hover:shadow-lg hover:shadow-red-600/20"
-        >
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">◆</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
-            Formatar XML
-          </h3>
-          <p class="text-gray-400 text-sm">
-            Formate e identar documentos XML
           </p>
         </RouterLink>
 
@@ -219,21 +189,6 @@
         </RouterLink>
 
         <RouterLink
-          to="/cpf-validator"
-          class="card group hover:shadow-lg hover:shadow-green-600/20"
-        >
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">✓</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
-            Validar CPF
-          </h3>
-          <p class="text-gray-400 text-sm">
-            Valide se um CPF é válido
-          </p>
-        </RouterLink>
-
-        <RouterLink
           to="/cnpj-generator"
           class="card group hover:shadow-lg hover:shadow-blue-600/20"
         >
@@ -247,49 +202,6 @@
             Gere um número de CNPJ válido para testes
           </p>
         </RouterLink>
-
-        <RouterLink
-          to="/cnpj-validator"
-          class="card group hover:shadow-lg hover:shadow-blue-600/20"
-        >
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">✓</span>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-            Validar CNPJ
-          </h3>
-          <p class="text-gray-400 text-sm">
-            Valide se um CNPJ é válido
-          </p>
-        </RouterLink>
-      </div>
-
-      <!-- Features Section -->
-      <div class="bg-dark-800 border border-dark-700 rounded-lg p-8 mt-12">
-        <h2 class="text-2xl font-bold text-white mb-6">✨ Recursos</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="flex items-start gap-4">
-            <span class="text-3xl">⚡</span>
-            <div>
-              <h3 class="text-white font-semibold mb-2">Rápido</h3>
-              <p class="text-gray-400 text-sm">Processamento instantâneo no navegador</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <span class="text-3xl">🔒</span>
-            <div>
-              <h3 class="text-white font-semibold mb-2">Seguro</h3>
-              <p class="text-gray-400 text-sm">Todos os dados são processados localmente</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <span class="text-3xl">🎨</span>
-            <div>
-              <h3 class="text-white font-semibold mb-2">Interface Clara</h3>
-              <p class="text-gray-400 text-sm">Design intuitivo e fácil de usar</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

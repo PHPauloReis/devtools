@@ -11,6 +11,7 @@ import JsonValidator from '@/views/JsonValidator.vue'
 import XmlValidator from '@/views/XmlValidator.vue'
 import RegexTester from '@/views/RegexTester.vue'
 import CpfGenerator from '@/views/CpfGenerator.vue'
+import CnpjGenerator from '@/views/CnpjGenerator.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -82,7 +83,7 @@ const router = createRouter({
         },
         {
           path: 'cnpj-generator',
-          component: ComingSoon
+          component: CnpjGenerator
         },
         {
           path: 'cnpj-validator',

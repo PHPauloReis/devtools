@@ -200,6 +200,59 @@ export const isValidCNPJ = (cnpj) => {
   return true
 }
 
+// Calcula dígitos verificadores do CNPJ
+export const calculateCnpjCheckDigits = (cnpjDigits) => {
+  // Primeiro dígito verificador
+  const multipliers1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+  let sum1 = 0
+  for (let i = 0; i < 12; i++) {
+    sum1 += parseInt(cnpjDigits[i]) * multipliers1[i]
+  }
+  const remainder1 = sum1 % 11
+  const digit1 = remainder1 < 2 ? 0 : 11 - remainder1
+
+  // Segundo dígito verificador
+  const multipliers2 = [6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9]
+  let sum2 = 0
+  for (let i = 0; i < 12; i++) {
+    sum2 += parseInt(cnpjDigits[i]) * multipliers2[i]
+  }
+  sum2 += digit1 * 2
+  const remainder2 = sum2 % 11
+  const digit2 = remainder2 < 2 ? 0 : 11 - remainder2
+
+  return [digit1, digit2]
+}
+
+// Gera CNPJ válido
+export const generateValidCnpj = (formatted = true) => {
+  // Gera 8 dígitos aleatórios para a parte da empresa
+  const companyDigits = []
+  for (let i = 0; i < 8; i++) {
+    companyDigits.push(Math.floor(Math.random() * 10))
+  }
+
+  // Adiciona sequência padrão (0001)
+  const sequenceDigits = [0, 0, 0, 1]
+
+  // Monta os 12 primeiros dígitos
+  const base12 = [...companyDigits, ...sequenceDigits]
+
+  // Calcula os dígitos verificadores
+  const [digit1, digit2] = calculateCnpjCheckDigits(base12)
+
+  // Monta o CNPJ completo
+  const cnpj = [...base12, digit1, digit2]
+  const cnpjUnformatted = cnpj.join('')
+
+  // Formata se necessário
+  if (formatted) {
+    return `${cnpj.slice(0, 2).join('')}.${cnpj.slice(2, 5).join('')}.${cnpj.slice(5, 8).join('')}/${cnpj.slice(8, 12).join('')}-${cnpj.slice(12).join('')}`
+  }
+
+  return cnpjUnformatted
+}
+
 // Valida email
 export const isValidEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -265,6 +318,8 @@ export default {
   formatJSON,
   isValidXML,
   isValidCPF,
+  calculateCnpjCheckDigits,
+  generateValidCnpj,
   isValidCNPJ,
   isValidEmail,
   isValidURL,
