@@ -28,7 +28,7 @@
       </div>
 
       <!-- Output Section -->
-      <div v-if="decodedResult && !isInvalidBase64" class="mb-8">
+      <div v-if="!isInvalidBase64 && inputBase64.trim()" class="mb-8">
         <!-- Preview de Imagem -->
         <div v-if="isImage" class="mb-8">
           <label class="block text-sm font-semibold text-gray-300 mb-3">
@@ -43,14 +43,46 @@
           </div>
         </div>
 
+        <!-- Preview PDF -->
+        <div v-if="isPdf" class="mb-8">
+            <label class="block text-sm font-semibold text-gray-300 mb-3">
+                Preview do PDF:
+            </label>
+
+            <div class="bg-dark-900 border border-dark-700 rounded-lg overflow-hidden">
+                <iframe
+                :src="pdfPreviewUrl"
+                class="w-full h-[600px]"
+                ></iframe>
+            </div>
+        </div>
+
         <!-- Resultado em Texto -->
-        <div v-if="!isImage" class="mb-8">
+        <div v-if="isPlainText" class="mb-8">
           <label class="block text-sm font-semibold text-gray-300 mb-3">
             Resultado Decodificado:
           </label>
           <div class="bg-dark-900 border-2 border-green-600/30 rounded-lg p-6">
             <div class="bg-dark-800 rounded p-4 text-green-400 break-words min-h-20 max-h-64 overflow-y-auto whitespace-pre-wrap">
               {{ decodedResult }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Arquivo não-imagem -->
+        <div v-if="isFile" class="mb-8">
+          <label class="block text-sm font-semibold text-gray-300 mb-3">
+            Arquivo Decodificado:
+          </label>
+          <div class="bg-dark-900 border-2 border-purple-600/30 rounded-lg p-6">
+            <div class="text-center">
+              <p class="text-gray-400 mb-4">📦 Arquivo binário detectado</p>
+              <button
+                @click="downloadFileContent"
+                class="btn-primary flex items-center justify-center gap-2"
+              >
+                💾 Download do Arquivo
+              </button>
             </div>
           </div>
         </div>
@@ -126,69 +158,72 @@ const { notify } = useNotification()
 // Função para validar Base64
 const isValidBase64 = (str) => {
   if (!str) return false
-  // Remove Data URL prefix se houver
+
   if (str.includes(',')) {
     str = str.split(',')[1]
   }
-  // Remove espaços em branco
+
   str = str.trim()
-  // Valida formato Base64
-  if (!/^[A-Za-z0-9+/]*={0,2}$/.test(str) || str.length % 4 !== 0) {
+
+  try {
+    atob(str)
+    return true
+  } catch {
     return false
   }
-  return true
 }
 
 // Função para extrair dados de Data URL
 const extractDataUrl = (str) => {
-  if (str.includes(',')) {
-    const parts = str.split(',')
-    const header = parts[0] // data:mime/type;base64
-    const data = parts[1] // dados base64
-    
-    let mimeType = 'text/plain'
-    if (header.includes('data:')) {
-      const mimeMatch = header.match(/data:([^;]+)/)
-      if (mimeMatch) {
-        mimeType = mimeMatch[1]
-      }
-    }
-    
+  str = str.trim()
+
+  if (str.startsWith('data:')) {
+    const [header, data] = str.split(',')
+
+    const mimeMatch = header.match(/data:(.*?);base64/)
+    const mimeType = mimeMatch ? mimeMatch[1] : 'application/octet-stream'
+
     return { data, mimeType }
   }
-  return { data: str, mimeType: 'text/plain' }
+
+  return {
+    data: str,
+    mimeType: 'application/octet-stream'
+  }
 }
 
 // Função para decodificar Base64
 const base64ToString = (str) => {
   try {
-    // Remove espaços em branco
-    str = str.trim()
-    
-    // Extrai Data URL se houver
     const { data } = extractDataUrl(str)
-    
-    // Decodifica
+
     const decoded = atob(data)
-    
-    // Tenta converter UTF-8
-    try {
-      return decodeURIComponent(escape(decoded))
-    } catch {
-      return decoded
-    }
-  } catch (error) {
-    return null
+
+    const bytes = Uint8Array.from(decoded, c => c.charCodeAt(0))
+
+    return new TextDecoder().decode(bytes)
+
+  } catch {
+    return ''
   }
 }
+
+const mimeType = computed(() => {
+  if (!inputBase64.value) return ''
+
+  const { mimeType } = extractDataUrl(inputBase64.value)
+  return mimeType
+})
 
 const isInvalidBase64 = computed(() => {
   return inputBase64.value.trim().length > 0 && !isValidBase64(inputBase64.value)
 })
 
 const decodedResult = computed(() => {
-  if (!inputBase64.value.trim() || isInvalidBase64.value) return ''
-  return base64ToString(inputBase64.value) || ''
+  if (!isPlainText.value) return ''
+  if (!inputBase64.value.trim()) return ''
+
+  return base64ToString(inputBase64.value)
 })
 
 const detectedMimeType = computed(() => {
@@ -198,22 +233,83 @@ const detectedMimeType = computed(() => {
 })
 
 const isImage = computed(() => {
-  return detectedMimeType.value.startsWith('image/')
+  if (!inputBase64.value) return false
+
+  const base64 = inputBase64.value.trim()
+
+  if (base64.startsWith('data:image/')) return true
+
+  // PNG
+  if (base64.startsWith('iVBORw0KGgo')) return true
+
+  // JPEG
+  if (base64.startsWith('/9j/')) return true
+
+  // GIF
+  if (base64.startsWith('R0lGOD')) return true
+
+  // WEBP
+  if (base64.startsWith('UklGR')) return true
+
+  return false
+})
+
+const isPdf = computed(() => {
+  if (!inputBase64.value) return false
+
+  const base64 = inputBase64.value.trim()
+
+  // assinatura de PDF
+  if (base64.startsWith('JVBER')) return true
+
+  // caso venha como dataURL
+  if (base64.startsWith('data:application/pdf')) return true
+
+  return false
+})
+
+const isFile = computed(() => {
+  return !isImage.value && !isPlainText.value && mimeType.value !== ''
+})
+
+const isPlainText = computed(() => {
+  if (isImage.value) return false
+  if (isPdf.value) return false
+
+  if (!inputBase64.value.startsWith('data:')) return true
+
+  return mimeType.value.startsWith('text/')
 })
 
 const imagePreviewUrl = computed(() => {
   if (!isImage.value) return ''
-  
+
   let base64 = inputBase64.value.trim()
-  
-  // Se for Data URL, usar diretamente
-  if (base64.includes(',')) {
+
+  if (base64.startsWith('data:image')) {
     return base64
   }
-  
-  // Caso contrário, construir Data URL
-  const { mimeType, data } = extractDataUrl(inputBase64.value)
-  return `data:${mimeType};base64,${data}`
+
+  // Detecta tipo
+  let mime = 'image/jpeg'
+
+  if (base64.startsWith('iVBOR')) mime = 'image/png'
+  if (base64.startsWith('R0lGOD')) mime = 'image/gif'
+  if (base64.startsWith('UklGR')) mime = 'image/webp'
+
+  return `data:${mime};base64,${base64}`
+})
+
+const pdfPreviewUrl = computed(() => {
+  if (!isPdf.value) return ''
+
+  let base64 = inputBase64.value.trim()
+
+  if (base64.startsWith('data:application/pdf')) {
+    return base64
+  }
+
+  return `data:application/pdf;base64,${base64}`
 })
 
 const base64Size = computed(() => {
@@ -277,6 +373,45 @@ const downloadAsImage = () => {
   element.click()
   document.body.removeChild(element)
   notify.success('Imagem salva!')
+}
+
+const downloadFileContent = () => {
+  if (!isFile.value) return
+  
+  try {
+    // Extrai o Base64 puro
+    let base64 = inputBase64.value.trim()
+    if (base64.includes(',')) {
+      base64 = base64.split(',')[1]
+    }
+    
+    // Converte Base64 para Blob
+    const byteCharacters = atob(base64)
+    const byteNumbers = new Array(byteCharacters.length)
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i)
+    }
+    const byteArray = new Uint8Array(byteNumbers)
+    const blob = new Blob([byteArray], { type: detectedMimeType.value })
+    
+    // Gera URL e faz download
+    const blobUrl = URL.createObjectURL(blob)
+    const element = document.createElement('a')
+    element.setAttribute('href', blobUrl)
+    
+    // Tenta extrair extensão do MIME type
+    const extension = detectedMimeType.value.split('/')[1] || 'bin'
+    element.setAttribute('download', `arquivo.${extension}`)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+    URL.revokeObjectURL(blobUrl)
+    
+    notify.success('Arquivo salvo!')
+  } catch (error) {
+    notify.error('Erro ao baixar arquivo')
+  }
 }
 
 const clearAll = () => {
