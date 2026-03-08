@@ -35,14 +35,6 @@
         </div>
       </div>
 
-      <!-- Info Box -->
-      <div class="bg-blue-600/10 border border-blue-600/20 rounded-lg p-4 mb-8">
-        <h3 class="text-sm font-semibold text-blue-400 mb-2">💡 Dica</h3>
-        <p class="text-sm text-gray-300">
-          JSON válido deve ter chaves entre aspas duplas e estar bem formatado. Objetos usam {}, arrays usam [].
-        </p>
-      </div>
-
       <!-- Output Section -->
       <div v-if="isValidJson && inputJson.trim()" class="mb-8">
         <!-- Tabs -->
