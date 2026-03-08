@@ -418,21 +418,6 @@ const clearAll = () => {
   inputBase64.value = ''
   notify.success('Limpo!')
 }
-
-const loadExample1 = () => {
-  inputBase64.value = 'T2zDoSwgbXVuZG8h'
-  notify.success('Exemplo 1 carregado!')
-}
-
-const loadExample2 = () => {
-  inputBase64.value = 'dXN1YXJpb0BleGFtcGxlLmNvbTpzZW5oYTEyMw=='
-  notify.success('Exemplo 2 carregado!')
-}
-
-const loadExample3 = () => {
-  inputBase64.value = 'aHR0cHM6Ly93d3cuZXhhbXBsZS5jb20vcGF0aD9wYXJhbT12YWx1ZQ=='
-  notify.success('Exemplo 3 carregado!')
-}
 </script>
 
 <style scoped></style>

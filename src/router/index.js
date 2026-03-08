@@ -7,6 +7,7 @@ import CaseConverter from '@/views/CaseConverter.vue'
 import TextCase from '@/views/TextCase.vue'
 import Base64Encode from '@/views/Base64Encode.vue'
 import Base64Decode from '@/views/Base64Decode.vue'
+import JsonValidator from '@/views/JsonValidator.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -49,7 +50,7 @@ const router = createRouter({
         // Validation Tools
         {
           path: 'json-validator',
-          component: ComingSoon
+          component: JsonValidator
         },
         {
           path: 'json-formatter',

@@ -81,25 +81,11 @@
           <span>Validar JSON</span>
         </RouterLink>
         <RouterLink
-          to="/json-formatter"
-          :class="['sidebar-item', { 'sidebar-item-active': isActive('/json-formatter') }]"
-        >
-          <span class="text-lg mr-3">✨</span>
-          <span>Formatar JSON</span>
-        </RouterLink>
-        <RouterLink
           to="/xml-validator"
           :class="['sidebar-item', { 'sidebar-item-active': isActive('/xml-validator') }]"
         >
           <span class="text-lg mr-3">◇</span>
           <span>Validar XML</span>
-        </RouterLink>
-        <RouterLink
-          to="/xml-formatter"
-          :class="['sidebar-item', { 'sidebar-item-active': isActive('/xml-formatter') }]"
-        >
-          <span class="text-lg mr-3">◆</span>
-          <span>Formatar XML</span>
         </RouterLink>
         <RouterLink
           to="/regex-tester"
