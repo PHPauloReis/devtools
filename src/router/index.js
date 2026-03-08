@@ -9,6 +9,7 @@ import Base64Encode from '@/views/Base64Encode.vue'
 import Base64Decode from '@/views/Base64Decode.vue'
 import JsonValidator from '@/views/JsonValidator.vue'
 import XmlValidator from '@/views/XmlValidator.vue'
+import RegexTester from '@/views/RegexTester.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -67,7 +68,7 @@ const router = createRouter({
         },
         {
           path: 'regex-tester',
-          component: ComingSoon
+          component: RegexTester
         },
         // Document Tools
         {
