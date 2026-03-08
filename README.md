@@ -1,53 +1,157 @@
-# devtools
+# DevTools 🛠️
 
-This template should help get you started developing with Vue 3 in Vite.
+Um conjunto completo de ferramentas para desenvolvedores, construído com Vue 3, Vite e Tailwind CSS.
 
-## Recommended IDE Setup
+## 🌟 Características
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Interface Dark Mode**: Design moderno com paleta de cores escura
+- **Menu Lateral Intuitivo**: Navegação fácil entre todas as ferramentas
+- **Ferramentas Populares**: 
+  - 🔤 Ferramentas de Texto
+  - 🔐 Ferramentas Base64
+  - ✓ Validadores & Formatadores
+  - 🆔 Ferramentas de Documentos
 
-## Recommended Browser Setup
+## 🚀 Ferramentas Disponíveis
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### 🔤 Ferramentas de Texto
+- **Contar Caracteres** - Conte caracteres em seu texto
+- **Contar Palavras** - Conte palavras, linhas e obtenha informações
+- **Maiúscula/Minúscula** - Converta entre maiúscula e minúscula
+- **Conversor de Case** - Converta para camelCase, snake_case, kebab-case, etc
 
-## Customize configuration
+### 🔐 Base64
+- **Codificar Base64** - Codifique texto ou arquivos para Base64
+- **Decodificar Base64** - Decodifique Base64 para texto ou arquivo
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### ✓ Validadores & Formatadores
+- **Validar JSON** - Valide a estrutura e sintaxe de JSON
+- **Formatar JSON** - Formate e identar JSON
+- **Validar XML** - Valide a estrutura de documentos XML
+- **Formatar XML** - Formate e identar XML
+- **Testador Regex** - Teste e valide expressões regulares
 
-## Project Setup
+### 🆔 Ferramentas de Documentos (Brasil)
+- **Gerar CPF** - Gere um número de CPF válido para testes
+- **Validar CPF** - Valide se um CPF é válido
+- **Gerar CNPJ** - Gere um número de CNPJ válido para testes
+- **Validar CNPJ** - Valide se um CNPJ é válido
+
+## 📋 Estrutura do Projeto
+
+```
+devtools/
+├── src/
+│   ├── components/       # Componentes reutilizáveis
+│   │   └── Sidebar.vue   # Menu lateral de navegação
+│   ├── layouts/          # Layouts principais
+│   │   └── AppLayout.vue # Layout master da aplicação
+│   ├── views/            # Páginas da aplicação
+│   │   ├── Home.vue      # Página inicial
+│   │   └── ComingSoon.vue # Página placeholder
+│   ├── router/           # Configuração de rotas
+│   ├── App.vue           # Componente raiz
+│   ├── main.js           # Ponto de entrada
+│   └── style.css         # Estilos globais
+├── index.html            # HTML principal
+├── tailwind.config.js    # Configuração do Tailwind CSS
+├── postcss.config.js     # Configuração do PostCSS
+├── vite.config.js        # Configuração do Vite
+└── package.json          # Dependências do projeto
+```
+
+## 🛠️ Stack Tecnológico
+
+- **Vue 3** - Framework JavaScript progressivo
+- **Vite** - Build tool moderno e rápido
+- **Vue Router** - Roteamento para aplicações de página única
+- **Pinia** - Gerenciamento de estado
+- **Tailwind CSS** - Framework CSS utilitário
+- **Vitest** - Framework de testes unitários
+
+## 📦 Instalar Dependências
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## 🚀 Desenvolvimento
+
+Para iniciar o servidor de desenvolvimento:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Acesse `http://localhost:5173` no navegador.
+
+## 🔨 Build para Produção
 
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Para pré-visualizar a build:
 
+```sh
+npm run preview
+```
+
+## 🧪 Testes
+
+### Testes Unitários
 ```sh
 npm run test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+### Testes E2E
+```sh
+npm run test:e2e:dev  # Modo desenvolvimento
+npm run test:e2e      # Modo produção
+```
+
+## ✨ Linting e Formatação
 
 ```sh
-npm run test:e2e:dev
+npm run lint            # Executar linters
+npm run format          # Formatar código com Prettier
 ```
+
+## 📱 Design
+
+### Paleta de Cores (Dark Mode)
+- **Background Principal**: `#030712` (dark-950)
+- **Background Secundário**: `#111827` (dark-900)
+- **Background Terciário**: `#1f2937` (dark-800)
+- **Border**: `#374151` (dark-700)
+- **Acento Primário**: Blue-600
+- **Text Primário**: White
+- **Text Secundário**: Gray-400
+
+### Breakpoints Responsivos
+- Mobile: < 768px
+- Tablet: 768px - 1024px
+- Desktop: > 1024px
+
+## 🎯 Próximos Passos
+
+1. Implementar cada ferramenta individual
+2. Adicionar testes unitários e E2E
+3. Adicionar funcionalidade de histórico
+4. Implementar tema claro/escuro
+5. Adicionar exportação de resultados
+6. Implementar PWA (Progressive Web App)
+
+## 📝 Notas de Desenvolvimento
+
+- Todos os dados são processados localmente no navegador
+- A aplicação é offline-first
+- Sem armazenamento de dados no servidor
+- Interface intuitiva e responsiva
+
+## 👨‍💻 Desenvolvido com ❤️
+
+DevTools - Ferramentas essenciais para desenvolvedores
 
 This runs the end-to-end tests against the Vite development server.
 It is much faster than the production build.
