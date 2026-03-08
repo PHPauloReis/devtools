@@ -141,24 +141,37 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useClipboard, useFileUpload, useNotification } from '@/composables'
+import { useClipboard, useNotification } from '@/composables'
 
 const inputText = ref('')
 const fileName = ref('')
 const fileContent = ref('')
 const activeTab = ref('text')
 const { copy } = useClipboard()
-const { readFileAsBase64 } = useFileUpload()
 const { notify } = useNotification()
 
 const fileInput = ref(null)
 
+// Função para converter UTF-8 para Base64
+const utf8ToBase64 = (str) => {
+  return btoa(unescape(encodeURIComponent(str)))
+}
+
 const encodedResult = computed(() => {
-  const text = activeTab.value === 'text' ? inputText.value : fileContent.value
-
-  if (!text) return ''
-
-  return btoa(text)
+  if (activeTab.value === 'text') {
+    const text = inputText.value
+    if (!text) return ''
+    
+    try {
+      return utf8ToBase64(text)
+    } catch (error) {
+      notify.error('Erro ao codificar: ' + error.message)
+      return ''
+    }
+  } else {
+    // Para arquivo, fileContent já é Base64 puro extraído do Data URL
+    return fileContent.value
+  }
 })
 
 const originalSize = computed(() => {
@@ -197,11 +210,17 @@ const handleFileSelect = async (event) => {
   if (file) {
     fileName.value = file.name
     try {
-      const content = await readFileAsBase64(file)
-      // Extrair apenas a parte Base64 (após a vírgula)
-      fileContent.value = content.includes(',') ? content.split(',')[1] : content
-      activeTab.value = 'file'
-      notify.success('Arquivo carregado com sucesso!')
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        // e.target.result já é um Data URL com Base64 incorporado
+        // Formato: data:mime/type;base64,xxxxx
+        // Extrair apenas a parte Base64 (após a vírgula)
+        const dataUrl = e.target.result
+        fileContent.value = dataUrl.includes(',') ? dataUrl.split(',')[1] : dataUrl
+        activeTab.value = 'file'
+        notify.success('Arquivo carregado com sucesso!')
+      }
+      reader.readAsDataURL(file)
     } catch (error) {
       notify.error('Erro ao ler arquivo')
     }
@@ -214,10 +233,15 @@ const handleDrop = async (event) => {
   if (file) {
     fileName.value = file.name
     try {
-      const content = await readFileAsBase64(file)
-      fileContent.value = content.includes(',') ? content.split(',')[1] : content
-      activeTab.value = 'file'
-      notify.success('Arquivo carregado com sucesso!')
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        // e.target.result já é um Data URL com Base64 incorporado
+        const dataUrl = e.target.result
+        fileContent.value = dataUrl.includes(',') ? dataUrl.split(',')[1] : dataUrl
+        activeTab.value = 'file'
+        notify.success('Arquivo carregado com sucesso!')
+      }
+      reader.readAsDataURL(file)
     } catch (error) {
       notify.error('Erro ao ler arquivo')
     }
