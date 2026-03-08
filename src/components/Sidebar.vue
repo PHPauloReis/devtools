@@ -109,25 +109,11 @@
           <span>Gerar CPF</span>
         </RouterLink>
         <RouterLink
-          to="/cpf-validator"
-          :class="['sidebar-item', { 'sidebar-item-active': isActive('/cpf-validator') }]"
-        >
-          <span class="text-lg mr-3">✓</span>
-          <span>Validar CPF</span>
-        </RouterLink>
-        <RouterLink
           to="/cnpj-generator"
           :class="['sidebar-item', { 'sidebar-item-active': isActive('/cnpj-generator') }]"
         >
           <span class="text-lg mr-3">🏢</span>
           <span>Gerar CNPJ</span>
-        </RouterLink>
-        <RouterLink
-          to="/cnpj-validator"
-          :class="['sidebar-item', { 'sidebar-item-active': isActive('/cnpj-validator') }]"
-        >
-          <span class="text-lg mr-3">✓</span>
-          <span>Validar CNPJ</span>
         </RouterLink>
       </div>
 

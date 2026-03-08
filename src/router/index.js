@@ -10,6 +10,7 @@ import Base64Decode from '@/views/Base64Decode.vue'
 import JsonValidator from '@/views/JsonValidator.vue'
 import XmlValidator from '@/views/XmlValidator.vue'
 import RegexTester from '@/views/RegexTester.vue'
+import CpfGenerator from '@/views/CpfGenerator.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -73,7 +74,7 @@ const router = createRouter({
         // Document Tools
         {
           path: 'cpf-generator',
-          component: ComingSoon
+          component: CpfGenerator
         },
         {
           path: 'cpf-validator',
