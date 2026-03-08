@@ -32,6 +32,7 @@
           <option value="pascalCase">PascalCase - HelloWorld</option>
           <option value="upperSnakeCase">UPPER_SNAKE_CASE - HELLO_WORLD</option>
           <option value="titleCase">Title Case - Hello World</option>
+          <option value="slug">Slug - hello-world (URL-friendly)</option>
           <option value="uppercase">UPPERCASE - HELLO WORLD</option>
           <option value="lowercase">lowercase - hello world</option>
           <option value="reversed">Invertido - dlrow olleH</option>
@@ -96,6 +97,7 @@ import {
   toPascalCase,
   toUpperSnakeCase,
   toTitleCase,
+  toSlug,
 } from '@/utils/helpers'
 import { useClipboard, useNotification } from '@/composables'
 
@@ -111,6 +113,7 @@ const caseNames = {
   pascalCase: 'PascalCase',
   upperSnakeCase: 'UPPER_SNAKE_CASE',
   titleCase: 'Title Case',
+  slug: 'Slug',
   uppercase: 'UPPERCASE',
   lowercase: 'lowercase',
   reversed: 'Invertido',
@@ -134,6 +137,8 @@ const convertedText = computed(() => {
       return toUpperSnakeCase(text)
     case 'titleCase':
       return toTitleCase(text)
+    case 'slug':
+      return toSlug(text)
     case 'uppercase':
       return text.toUpperCase()
     case 'lowercase':

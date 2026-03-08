@@ -50,6 +50,16 @@ export const toTitleCase = (str) => {
     .join(' ')
 }
 
+// Converte string para slug (url-friendly)
+export const toSlug = (str) => {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+    .replace(/[^a-z0-9]+/g, '-') // Substitui caracteres especiais por hífen
+    .replace(/^-+|-+$/g, '') // Remove hífens nas extremidades
+}
+
 // Copia texto para clipboard
 export const copyToClipboard = async (text) => {
   try {
@@ -306,6 +316,7 @@ export default {
   toPascalCase,
   toUpperSnakeCase,
   toTitleCase,
+  toSlug,
 
   // Arquivo
   copyToClipboard,
