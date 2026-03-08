@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '@/layouts/AppLayout.vue'
 import Home from '@/views/Home.vue'
+import TextCounter from '@/views/TextCounter.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -17,7 +18,7 @@ const router = createRouter({
         // Text Tools
         {
           path: 'text-counter',
-          component: ComingSoon
+          component: TextCounter
         },
         {
           path: 'word-counter',
