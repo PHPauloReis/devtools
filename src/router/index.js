@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '@/layouts/AppLayout.vue'
 import Home from '@/views/Home.vue'
 import TextCounter from '@/views/TextCounter.vue'
+import WordCounter from '@/views/WordCounter.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -22,7 +23,7 @@ const router = createRouter({
         },
         {
           path: 'word-counter',
-          component: ComingSoon
+          component: WordCounter
         },
         {
           path: 'case-converter',
