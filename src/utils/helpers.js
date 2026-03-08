@@ -14,17 +14,19 @@ export const toCamelCase = (str) => {
 // Converte string para snake_case
 export const toSnakeCase = (str) => {
   return str
-    .replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)
-    .replace(/\s+/g, '_')
+    .replace(/([a-z])([A-Z])/g, '$1_$2')
+    .replace(/[\s_-]+/g, '_')
     .toLowerCase()
+    .replace(/^_+|_+$/g, '')
 }
 
 // Converte string para kebab-case
 export const toKebabCase = (str) => {
   return str
-    .replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
-    .replace(/\s+/g, '-')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_-]+/g, '-')
     .toLowerCase()
+    .replace(/^-+|-+$/g, '')
 }
 
 // Converte string para PascalCase
