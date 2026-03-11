@@ -45,6 +45,13 @@
           <span class="text-lg mr-3">Aa</span>
           <span>Maiúscula/Minúscula</span>
         </RouterLink>
+        <RouterLink
+          to="/strip-tags"
+          :class="['sidebar-item', { 'sidebar-item-active': isActive('/strip-tags') }]"
+        >
+          <span class="text-lg mr-3">🧹</span>
+          <span>Remover Tags</span>
+        </RouterLink>
       </div>
 
       <!-- Base64 Tools -->
