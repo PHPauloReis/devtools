@@ -52,6 +52,13 @@
           <span class="text-lg mr-3">🧹</span>
           <span>Remover Tags</span>
         </RouterLink>
+        <RouterLink
+          to="/diff-checker"
+          :class="['sidebar-item', { 'sidebar-item-active': isActive('/diff-checker') }]"
+        >
+          <span class="text-lg mr-3">📊</span>
+          <span>Diff Checker</span>
+        </RouterLink>
       </div>
 
       <!-- Base64 Tools -->

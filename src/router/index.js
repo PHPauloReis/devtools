@@ -13,6 +13,7 @@ import RegexTester from '@/views/RegexTester.vue'
 import CpfGenerator from '@/views/CpfGenerator.vue'
 import CnpjGenerator from '@/views/CnpjGenerator.vue'
 import StripTags from '@/views/StripTags.vue'
+import DiffChecker from '@/views/DiffChecker.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -46,6 +47,10 @@ const router = createRouter({
         {
           path: 'strip-tags',
           component: StripTags
+        },
+        {
+          path: 'diff-checker',
+          component: DiffChecker
         },
         // Base64 Tools
         {
