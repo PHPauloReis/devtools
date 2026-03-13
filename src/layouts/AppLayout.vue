@@ -4,37 +4,50 @@
     <Sidebar />
 
     <!-- Main Content -->
-    <div class="flex-1 ml-64 overflow-auto">
+    <div class="flex-1 md:ml-64 overflow-auto">
       <!-- Header -->
-      <header class="bg-dark-800 border-b border-dark-700 sticky top-0 z-10">
-        <div class="px-8 py-4 flex items-center justify-between">
-          <div>
-            <h2 class="text-2xl font-bold text-white">{{ pageTitle }}</h2>
-            <p class="text-gray-400 text-sm mt-1">{{ pageDescription }}</p>
-          </div>
-          <div class="flex items-center gap-4">
-            <button class="text-gray-400 hover:text-white transition-colors">
-              ⚙
-            </button>
-            <button class="text-gray-400 hover:text-white transition-colors">
-              🔔
-            </button>
+      <header class="bg-dark-800 border-b border-dark-700 sticky top-0 z-20">
+        <div class="px-4 md:px-8 py-4 flex items-center justify-between">
+          <!-- Mobile Menu Button -->
+          <button
+            @click="uiStore.toggleSidebar"
+            class="md:hidden p-2 hover:bg-dark-700 rounded-lg transition-colors"
+            aria-label="Toggle sidebar"
+          >
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+
+          <div class="flex-1 md:flex-none">
+            <h2 class="text-lg md:text-2xl font-bold text-white">{{ pageTitle }}</h2>
+            <p class="text-gray-400 text-xs md:text-sm mt-1">{{ pageDescription }}</p>
           </div>
         </div>
       </header>
 
       <!-- Page Content -->
-      <main class="p-8">
+      <main class="p-4 md:p-8">
         <RouterView />
       </main>
     </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      v-if="uiStore.sidebarOpen"
+      @click="uiStore.closeSidebar"
+      class="fixed inset-0 bg-black/50 md:hidden z-30"
+    ></div>
   </div>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useUIStore } from '@/stores/ui'
 import Sidebar from '@/components/Sidebar.vue'
+
+const uiStore = useUIStore()
 
 const route = useRoute()
 const pageTitle = ref('DevTools')

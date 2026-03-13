@@ -1,20 +1,20 @@
 <template>
-  <div class="max-w-5xl mx-auto">
+  <div class="max-w-5xl mx-auto px-4">
     <!-- Main Card -->
     <div class="card">
-      <h1 class="text-3xl font-bold text-white mb-2">Contador de Caracteres</h1>
-      <p class="text-gray-400 mb-8">Analise seu texto e obtenha estatísticas detalhadas</p>
+      <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Contador de Caracteres</h1>
+      <p class="text-sm md:text-base text-gray-400 mb-6 md:mb-8">Analise seu texto e obtenha estatísticas detalhadas</p>
 
       <!-- Input Area -->
-      <div class="mb-8">
-        <label class="block text-sm font-semibold text-gray-300 mb-3">
+      <div class="mb-6 md:mb-8">
+        <label class="block text-xs md:text-sm font-semibold text-gray-300 mb-2 md:mb-3">
           Cole ou digite seu texto aqui:
         </label>
         <textarea
           v-model="inputText"
           placeholder="Digite seu texto aqui... (máximo 10000 caracteres)"
           maxlength="10000"
-          class="w-full h-56 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
+          class="w-full h-40 md:h-56 bg-dark-900 border border-dark-700 rounded-lg p-3 md:p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none text-sm md:text-base"
         ></textarea>
         <div class="text-right text-xs text-gray-400 mt-2">
           {{ inputText.length }} / 10000
@@ -22,38 +22,38 @@
       </div>
 
       <!-- Stats Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
-          <p class="text-gray-400 text-sm mb-2">Total</p>
-          <p class="text-3xl font-bold text-blue-400">{{ stats.total }}</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-6 md:mb-8">
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
+          <p class="text-gray-400 text-xs md:text-sm mb-2">Total</p>
+          <p class="text-2xl md:text-3xl font-bold text-blue-400">{{ stats.total }}</p>
           <p class="text-xs text-gray-500 mt-1">caracteres</p>
         </div>
 
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
-          <p class="text-gray-400 text-sm mb-2">Sem Espaços</p>
-          <p class="text-3xl font-bold text-green-400">{{ stats.withoutSpaces }}</p>
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
+          <p class="text-gray-400 text-xs md:text-sm mb-2">Sem Espaços</p>
+          <p class="text-2xl md:text-3xl font-bold text-green-400">{{ stats.withoutSpaces }}</p>
           <p class="text-xs text-gray-500 mt-1">caracteres</p>
         </div>
 
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
-          <p class="text-gray-400 text-sm mb-2">Palavras</p>
-          <p class="text-3xl font-bold text-purple-400">{{ stats.words }}</p>
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
+          <p class="text-gray-400 text-xs md:text-sm mb-2">Palavras</p>
+          <p class="text-2xl md:text-3xl font-bold text-purple-400">{{ stats.words }}</p>
           <p class="text-xs text-gray-500 mt-1">palavras</p>
         </div>
 
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
-          <p class="text-gray-400 text-sm mb-2">Linhas</p>
-          <p class="text-3xl font-bold text-yellow-400">{{ stats.lines }}</p>
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
+          <p class="text-gray-400 text-xs md:text-sm mb-2">Linhas</p>
+          <p class="text-2xl md:text-3xl font-bold text-yellow-400">{{ stats.lines }}</p>
           <p class="text-xs text-gray-500 mt-1">linhas</p>
         </div>
       </div>
 
       <!-- Detailed Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
           <div class="flex justify-between items-center mb-3">
-            <p class="text-gray-400 text-sm font-semibold">Letras</p>
-            <span class="text-2xl font-bold text-blue-400">{{ stats.letters }}</span>
+            <p class="text-gray-400 text-xs md:text-sm font-semibold">Letras</p>
+            <span class="text-xl md:text-2xl font-bold text-blue-400">{{ stats.letters }}</span>
           </div>
           <div class="w-full bg-dark-800 rounded-full h-2">
             <div
@@ -63,10 +63,10 @@
           </div>
         </div>
 
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
           <div class="flex justify-between items-center mb-3">
-            <p class="text-gray-400 text-sm font-semibold">Números</p>
-            <span class="text-2xl font-bold text-green-400">{{ stats.numbers }}</span>
+            <p class="text-gray-400 text-xs md:text-sm font-semibold">Números</p>
+            <span class="text-xl md:text-2xl font-bold text-green-400">{{ stats.numbers }}</span>
           </div>
           <div class="w-full bg-dark-800 rounded-full h-2">
             <div
@@ -76,10 +76,10 @@
           </div>
         </div>
 
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
           <div class="flex justify-between items-center mb-3">
-            <p class="text-gray-400 text-sm font-semibold">Espaços</p>
-            <span class="text-2xl font-bold text-purple-400">{{ stats.spaces }}</span>
+            <p class="text-gray-400 text-xs md:text-sm font-semibold">Espaços</p>
+            <span class="text-xl md:text-2xl font-bold text-purple-400">{{ stats.spaces }}</span>
           </div>
           <div class="w-full bg-dark-800 rounded-full h-2">
             <div
@@ -89,10 +89,10 @@
           </div>
         </div>
 
-        <div class="bg-dark-900 rounded-lg p-4 border border-dark-700">
+        <div class="bg-dark-900 rounded-lg p-3 md:p-4 border border-dark-700">
           <div class="flex justify-between items-center mb-3">
-            <p class="text-gray-400 text-sm font-semibold">Caracteres Especiais</p>
-            <span class="text-2xl font-bold text-orange-400">{{ stats.special }}</span>
+            <p class="text-gray-400 text-xs md:text-sm font-semibold">Caracteres Especiais</p>
+            <span class="text-xl md:text-2xl font-bold text-orange-400">{{ stats.special }}</span>
           </div>
           <div class="w-full bg-dark-800 rounded-full h-2">
             <div
@@ -104,30 +104,30 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
         <button
           @click="copyStats"
-          class="btn-primary flex items-center justify-center gap-2"
+          class="btn-primary flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm px-2 md:px-4 py-2 md:py-2"
         >
-          📋 Copiar Stats
+          📋 <span class="hidden sm:inline">Copiar Stats</span><span class="sm:hidden">Stats</span>
         </button>
         <button
           @click="copyText"
-          class="btn-primary flex items-center justify-center gap-2"
+          class="btn-primary flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm px-2 md:px-4 py-2 md:py-2"
         >
-          📄 Copiar Texto
+          📄 <span class="hidden sm:inline">Copiar Texto</span><span class="sm:hidden">Texto</span>
         </button>
         <button
           @click="downloadStats"
-          class="btn-primary flex items-center justify-center gap-2"
+          class="btn-primary flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm px-2 md:px-4 py-2 md:py-2"
         >
-          💾 Download JSON
+          💾 <span class="hidden sm:inline">Download</span><span class="sm:hidden">Baixar</span>
         </button>
         <button
           @click="clearText"
-          class="btn-secondary flex items-center justify-center gap-2"
+          class="btn-secondary flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm px-2 md:px-4 py-2 md:py-2"
         >
-          🗑️ Limpar
+          🗑️ <span class="hidden sm:inline">Limpar</span><span class="sm:hidden">Limpar</span>
         </button>
       </div>
     </div>

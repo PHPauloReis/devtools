@@ -1,12 +1,27 @@
 <template>
-  <aside class="w-64 bg-dark-900 border-r border-dark-700 h-screen overflow-y-auto fixed left-0 top-0">
+  <aside
+    class="w-64 bg-dark-900 border-r border-dark-700 h-screen overflow-y-auto fixed left-0 top-0 z-40 transition-transform duration-300 md:translate-x-0"
+    :class="{ '-translate-x-full': !uiStore.sidebarOpen }"
+  >
     <!-- Header -->
-    <div class="p-6 border-b border-dark-700">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-          <span class="text-white font-bold text-lg">⚙</span>
+    <div class="p-4 md:p-6 border-b border-dark-700">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-lg">⚙</span>
+          </div>
+          <h1 class="text-lg md:text-xl font-bold text-white">DevTools</h1>
         </div>
-        <h1 class="text-xl font-bold text-white">DevTools</h1>
+        <!-- Close button for mobile -->
+        <button
+          @click="uiStore.closeSidebar"
+          class="md:hidden p-2 hover:bg-dark-800 rounded-lg transition-colors"
+          aria-label="Close sidebar"
+        >
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
       </div>
     </div>
 
@@ -146,9 +161,12 @@
 </template>
 
 <script setup>
+import { watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useUIStore } from '@/stores/ui'
 
 const route = useRoute()
+const uiStore = useUIStore()
 
 const isActive = (path) => {
   if (path === '/') {
@@ -156,6 +174,11 @@ const isActive = (path) => {
   }
   return route.path === path
 }
+
+// Close sidebar on route change (mobile)
+watch(() => route.path, () => {
+  uiStore.closeSidebar()
+})
 </script>
 
 <style scoped></style>
