@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import AppLayout from '@/layouts/AppLayout.vue'
 import Home from '@/views/Home.vue'
 import TextCounter from '@/views/TextCounter.vue'
@@ -17,7 +17,7 @@ import DiffChecker from '@/views/DiffChecker.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
