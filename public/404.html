@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script>
+    const path = window.location.pathname.replace('/devtools', '')
+    window.location.replace('/devtools/#' + path + window.location.search + window.location.hash)
+  </script>
+</head>
+</html>
