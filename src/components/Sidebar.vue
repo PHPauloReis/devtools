@@ -123,6 +123,13 @@
           <span class="text-lg mr-3">🔍</span>
           <span>Testador Regex</span>
         </RouterLink>
+        <RouterLink
+          to="/bcrypt-generator"
+          :class="['sidebar-item', { 'sidebar-item-active': isActive('/bcrypt-generator') }]"
+        >
+          <span class="text-lg mr-3">🛡️</span>
+          <span>BCrypt</span>
+        </RouterLink>
       </div>
 
       <!-- CPF/CNPJ Tools -->
