@@ -10,6 +10,7 @@ import Base64Decode from '@/views/Base64Decode.vue'
 import JsonValidator from '@/views/JsonValidator.vue'
 import XmlValidator from '@/views/XmlValidator.vue'
 import RegexTester from '@/views/RegexTester.vue'
+import BcryptGenerator from '@/views/BcryptGenerator.vue'
 import CpfGenerator from '@/views/CpfGenerator.vue'
 import CnpjGenerator from '@/views/CnpjGenerator.vue'
 import StripTags from '@/views/StripTags.vue'
@@ -81,6 +82,10 @@ const router = createRouter({
         {
           path: 'regex-tester',
           component: RegexTester
+        },
+        {
+          path: 'bcrypt-generator',
+          component: BcryptGenerator
         },
         // Document Tools
         {
