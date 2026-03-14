@@ -15,6 +15,7 @@ import CpfGenerator from '@/views/CpfGenerator.vue'
 import CnpjGenerator from '@/views/CnpjGenerator.vue'
 import StripTags from '@/views/StripTags.vue'
 import DiffChecker from '@/views/DiffChecker.vue'
+import UuidGenerator from '@/views/UuidGenerator.vue'
 import ComingSoon from '@/views/ComingSoon.vue'
 
 const router = createRouter({
@@ -86,6 +87,10 @@ const router = createRouter({
         {
           path: 'bcrypt-generator',
           component: BcryptGenerator
+        },
+        {
+          path: 'uuid-generator',
+          component: UuidGenerator
         },
         // Document Tools
         {
