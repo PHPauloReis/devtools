@@ -5,14 +5,6 @@
       <h1 class="text-3xl font-bold text-white mb-2">Gerador de UUID</h1>
       <p class="text-gray-400 mb-8">Gere identificadores únicos universais (UUID v4)</p>
 
-      <!-- Info Box -->
-      <div class="bg-blue-600/10 border border-blue-600/20 rounded-lg p-4 mb-8">
-        <h3 class="text-sm font-semibold text-blue-400 mb-2">ℹ️ O que é UUID?</h3>
-        <p class="text-sm text-gray-300">
-          UUID (Universally Unique Identifier) é um identificador único em formato padrão. A versão 4 usa valores aleatórios para gerar IDs únicos.
-        </p>
-      </div>
-
       <!-- Generation Options -->
       <div class="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
