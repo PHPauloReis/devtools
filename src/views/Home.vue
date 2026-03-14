@@ -198,6 +198,21 @@
           </p>
         </RouterLink>
 
+        <RouterLink
+          to="/uuid-generator"
+          class="card group hover:shadow-lg hover:shadow-cyan-600/20"
+        >
+          <div class="flex items-start justify-between mb-3 md:mb-4">
+            <span class="text-3xl md:text-4xl">🆔</span>
+          </div>
+          <h3 class="text-base md:text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+            Gerador UUID
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Gere identificadores únicos universais
+          </p>
+        </RouterLink>
+
         <!-- Document Tools Section -->
         <div class="col-span-full mt-6 md:mt-8">
           <h2 class="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">🆔 Ferramentas de Documentos</h2>

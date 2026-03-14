@@ -130,6 +130,13 @@
           <span class="text-lg mr-3">🛡️</span>
           <span>BCrypt</span>
         </RouterLink>
+        <RouterLink
+          to="/uuid-generator"
+          :class="['sidebar-item', { 'sidebar-item-active': isActive('/uuid-generator') }]"
+        >
+          <span class="text-lg mr-3">🆔</span>
+          <span>Gerador UUID</span>
+        </RouterLink>
       </div>
 
       <!-- CPF/CNPJ Tools -->

@@ -67,6 +67,8 @@ const updatePageInfo = () => {
     '/xml-validator': { title: 'Validar XML', desc: 'Valide a estrutura de XML' },
     '/xml-formatter': { title: 'Formatar XML', desc: 'Formate e identar XML' },
     '/regex-tester': { title: 'Testador Regex', desc: 'Teste padrões de expressões regulares' },
+    '/bcrypt-generator': { title: 'Gerar Hash Bcrypt', desc: 'Gere hashes seguros usando Bcrypt' },
+    '/uuid-generator': { title: 'Gerar UUID', desc: 'Gere identificadores únicos universais' },
     '/cpf-generator': { title: 'Gerar CPF', desc: 'Gere um CPF válido' },
     '/cpf-validator': { title: 'Validar CPF', desc: 'Valide um número de CPF' },
     '/cnpj-generator': { title: 'Gerar CNPJ', desc: 'Gere um CNPJ válido' },
