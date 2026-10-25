@@ -153,11 +153,12 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useClipboard } from '@/composables'
+import { useAnalytics, useClipboard } from '@/composables'
 
 const generatedUuids = ref([])
 const uuidVersion = ref('v4')
 const quantityToGenerate = ref(1)
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 
 /**
@@ -197,6 +198,7 @@ const generateUuid = () => {
 const generateUuids = () => {
   const quantity = Math.min(quantityToGenerate.value, 100)
   generatedUuids.value = Array.from({ length: quantity }, () => generateUuid())
+  trackEvent('gerar_uuid', { quantidade: quantity, versao: uuidVersion.value })
 }
 
 /**

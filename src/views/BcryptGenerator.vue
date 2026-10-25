@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import bcrypt from 'bcryptjs'
-import { useClipboard, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useNotification } from '@/composables'
 
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 const { notify } = useNotification()
 
@@ -32,6 +33,7 @@ async function generateHash() {
   }
   if (isHashing.value) return
 
+  trackEvent('gerar_hash_bcrypt')
   isHashing.value = true
   generatedHash.value = ''
   hashTime.value = null

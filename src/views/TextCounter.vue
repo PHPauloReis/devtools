@@ -12,6 +12,7 @@
         </label>
         <textarea
           v-model="inputText"
+          @paste="trackEvent('paste_contador_caracteres')"
           placeholder="Digite seu texto aqui... (máximo 10000 caracteres)"
           maxlength="10000"
           class="w-full h-40 md:h-56 bg-dark-900 border border-dark-700 rounded-lg p-3 md:p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none text-sm md:text-base"
@@ -137,12 +138,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { countCharacters, countWords, countLines, copyToClipboard, downloadFile } from '@/utils/helpers'
-import { useClipboard, useDownload, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useDownload, useNotification } from '@/composables'
 
 const inputText = ref('')
 const { copy } = useClipboard()
 const { download } = useDownload()
 const { notify } = useNotification()
+const { trackEvent } = useAnalytics()
 
 const stats = computed(() => {
   const chars = countCharacters(inputText.value)

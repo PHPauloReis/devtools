@@ -190,13 +190,14 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useClipboard, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useNotification } from '@/composables'
 import { isValidCNPJ, calculateCnpjCheckDigits } from '@/utils/helpers'
 
 const generatedCnpjs = ref([])
 const outputFormat = ref('formatted')
 const quantityToGenerate = ref(1)
 const cnpjToValidate = ref('')
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 const { notify } = useNotification()
 
@@ -306,6 +307,10 @@ const generateCnpjs = () => {
     generatedCnpjs.value.push(generateValidCnpj())
   }
 
+  if (generatedCnpjs.value.length > 0) {
+    trackEvent('gerar_cnpj', { quantidade: generatedCnpjs.value.length })
+  }
+
   if (quantity === 1) {
     notify.success('CNPJ gerado com sucesso!')
   } else {
@@ -315,15 +320,19 @@ const generateCnpjs = () => {
 
 // Função para copiar CNPJ individual
 const copyCnpj = async (cnpj) => {
-  await copy(cnpj)
-  notify.success('CNPJ copiado!')
+  if (await copy(cnpj)) {
+    trackEvent('copiar_cnpj', { metodo: 'individual' })
+    notify.success('CNPJ copiado!')
+  }
 }
 
 // Função para copiar todos os CNPJs
 const copyAll = async () => {
   const text = generatedCnpjs.value.join('\n')
-  await copy(text)
-  notify.success('Todos os CNPJs copiados!')
+  if (await copy(text)) {
+    trackEvent('copiar_cnpj', { metodo: 'todos' })
+    notify.success('Todos os CNPJs copiados!')
+  }
 }
 
 // Função para limpar CNPJs

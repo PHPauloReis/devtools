@@ -12,6 +12,7 @@
         </label>
         <textarea
           v-model="inputText"
+          @paste="trackEvent('paste_conversor_case')"
           placeholder="Digite seu texto aqui..."
           class="w-full h-40 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
         ></textarea>
@@ -99,10 +100,11 @@ import {
   toTitleCase,
   toSlug,
 } from '@/utils/helpers'
-import { useClipboard, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useNotification } from '@/composables'
 
 const inputText = ref('')
 const selectedCase = ref('uppercase')
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 const { notify } = useNotification()
 

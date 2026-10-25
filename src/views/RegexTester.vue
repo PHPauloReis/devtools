@@ -13,6 +13,8 @@
         <div class="flex gap-2">
           <input
             v-model="regexPattern"
+            @paste="handleRegexPaste"
+            @input="handleRegexInput"
             type="text"
             placeholder="/^[a-z]+$/i"
             class="flex-1 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono text-sm"
@@ -94,6 +96,7 @@
         </label>
         <textarea
           v-model="testText"
+          @paste="trackEvent('paste_regex_texto_teste')"
           placeholder="Digite o texto para testar a regex..."
           class="w-full h-40 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none font-mono text-sm"
         ></textarea>
@@ -287,14 +290,36 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useClipboard, useNotification } from '@/composables'
+import { ref, computed, onBeforeUnmount } from 'vue'
+import { useAnalytics, useClipboard, useNotification } from '@/composables'
 
 const regexPattern = ref('')
 const testText = ref('Nosso cliente número 1 é o João Silva. O seu CPF é 542.845.940-95 e o CPF de sua mãe é 611.457.710-84. João nasceu em 15/03/1988 e pode ser contatado pelo telefone (11) 98765-4321 ou pelo e-mail joao.silva@example.com. Atualmente, ele trabalha na empresa Silva Tecnologia Ltda., inscrita no CNPJ 12.345.678/0001-90. O site da empresa é https://www.silvatecnologia.com.br, cuja cor predominante da logo é o hexadecimal #1E73BE, e o IPv4 do site é 203.0.113.45.')
 const flags = ref([])
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 const { notify } = useNotification()
+
+let regexTypingTimeout
+
+const handleRegexPaste = () => {
+  clearTimeout(regexTypingTimeout)
+  trackEvent('paste_regex_expressao')
+}
+
+const handleRegexInput = (event) => {
+  clearTimeout(regexTypingTimeout)
+
+  if (event.inputType === 'insertFromPaste') return
+
+  regexTypingTimeout = setTimeout(() => {
+    if (regexPattern.value.trim()) {
+      trackEvent('digitar_regex')
+    }
+  }, 250)
+}
+
+onBeforeUnmount(() => clearTimeout(regexTypingTimeout))
 
 const regexError = computed(() => {
   if (!regexPattern.value) return ''

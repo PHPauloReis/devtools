@@ -12,6 +12,7 @@
         </label>
         <textarea
           v-model="inputText"
+          @paste="trackEvent('paste_remover_tags_html_xml')"
           placeholder="Cole seu HTML/XML aqui..."
           class="w-full h-40 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
         ></textarea>
@@ -168,11 +169,12 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { stripTags } from '@/utils/helpers'
-import { useClipboard, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useNotification } from '@/composables'
 
 const inputText = ref('')
 const stripMode = ref('all')
 const allowedTags = ref('')
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 const { notify } = useNotification()
 

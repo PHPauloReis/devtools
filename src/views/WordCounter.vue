@@ -12,6 +12,7 @@
         </label>
         <textarea
           v-model="inputText"
+          @paste="trackEvent('paste_contar_palavras')"
           placeholder="Digite seu texto aqui..."
           class="w-full h-56 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
         ></textarea>
@@ -236,13 +237,14 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { countWords, countLines, copyToClipboard, downloadFile } from '@/utils/helpers'
-import { useClipboard, useDownload, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useDownload, useNotification } from '@/composables'
 
 const inputText = ref('')
 const activeTab = ref('frequency')
 const { copy } = useClipboard()
 const { download } = useDownload()
 const { notify } = useNotification()
+const { trackEvent } = useAnalytics()
 
 const getWordFrequency = (text) => {
   if (!text.trim()) return {}

@@ -36,6 +36,7 @@
         </label>
         <textarea
           v-model="inputText"
+          @paste="trackEvent('paste_codificar_base64')"
           placeholder="Digite seu texto aqui..."
           class="w-full h-40 bg-dark-900 border border-dark-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
         ></textarea>
@@ -141,12 +142,13 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useClipboard, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useNotification } from '@/composables'
 
 const inputText = ref('')
 const fileName = ref('')
 const fileContent = ref('')
 const activeTab = ref('text')
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 const { notify } = useNotification()
 
