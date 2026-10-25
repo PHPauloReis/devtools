@@ -316,7 +316,7 @@ const handleRegexInput = (event) => {
     if (regexPattern.value.trim()) {
       trackEvent('digitar_regex')
     }
-  }, 250)
+  }, 1000)
 }
 
 onBeforeUnmount(() => clearTimeout(regexTypingTimeout))

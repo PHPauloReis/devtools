@@ -58,13 +58,13 @@ describe('tool analytics events', () => {
     expect(window.gtag).toHaveBeenNthCalledWith(2, 'event', 'paste_regex_texto_teste', undefined)
   })
 
-  it('tracks a regex after 250ms without sending the expression', async () => {
+  it('tracks a regex after 1 second without sending the expression', async () => {
     vi.useFakeTimers()
     const wrapper = mount(RegexTester)
     const regexInput = wrapper.find('input[type="text"]')
 
     await regexInput.setValue('[a-z]+')
-    vi.advanceTimersByTime(249)
+    vi.advanceTimersByTime(999)
     expect(window.gtag).not.toHaveBeenCalled()
 
     vi.advanceTimersByTime(1)
@@ -80,7 +80,7 @@ describe('tool analytics events', () => {
     await regexInput.trigger('paste')
     await regexInput.setValue('[a-z]+')
     await regexInput.trigger('input', { inputType: 'insertFromPaste' })
-    vi.advanceTimersByTime(250)
+    vi.advanceTimersByTime(1000)
 
     expect(window.gtag).toHaveBeenCalledTimes(1)
     expect(window.gtag).toHaveBeenCalledWith('event', 'paste_regex_expressao', undefined)
