@@ -30,6 +30,7 @@ const pasteCases = [
 describe('tool analytics events', () => {
   beforeEach(() => {
     window.gtag = vi.fn()
+    localStorage.setItem('devtools.analytics-consent', 'accepted')
   })
 
   afterEach(() => {

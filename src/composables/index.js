@@ -38,12 +38,56 @@ export const useNotification = () => {
 
 export const useAnalytics = () => {
   const trackEvent = (eventName, parameters) => {
-    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+    if (hasAnalyticsConsent() && typeof window.gtag === 'function') {
       window.gtag('event', eventName, parameters)
     }
   }
 
   return { trackEvent }
+}
+
+const ANALYTICS_CONSENT_KEY = 'devtools.analytics-consent'
+const GA_MEASUREMENT_ID = 'G-5Q6L8N060Q'
+
+export const getAnalyticsConsent = () => {
+  if (typeof window === 'undefined') return null
+
+  const consent = window.localStorage.getItem(ANALYTICS_CONSENT_KEY)
+  return consent === 'accepted' || consent === 'rejected' ? consent : null
+}
+
+const hasAnalyticsConsent = () => getAnalyticsConsent() === 'accepted'
+
+export const initializeAnalytics = () => {
+  if (!hasAnalyticsConsent() || typeof window === 'undefined') return false
+  if (document.querySelector('script[data-ga4]')) return true
+
+  window.dataLayer = window.dataLayer || []
+  window.gtag = function () {
+    window.dataLayer.push(arguments)
+  }
+  window.gtag('js', new Date())
+  window.gtag('config', GA_MEASUREMENT_ID)
+
+  const script = document.createElement('script')
+  script.async = true
+  script.dataset.ga4 = ''
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
+  document.head.appendChild(script)
+
+  return true
+}
+
+export const setAnalyticsConsent = (consent) => {
+  if (consent !== 'accepted' && consent !== 'rejected') {
+    throw new TypeError('Consentimento de Analytics inválido')
+  }
+
+  window.localStorage.setItem(ANALYTICS_CONSENT_KEY, consent)
+
+  if (consent === 'accepted') {
+    initializeAnalytics()
+  }
 }
 
 /**
