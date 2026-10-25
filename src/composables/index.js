@@ -36,6 +36,16 @@ export const useNotification = () => {
   }
 }
 
+export const useAnalytics = () => {
+  const trackEvent = (eventName, parameters) => {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', eventName, parameters)
+    }
+  }
+
+  return { trackEvent }
+}
+
 /**
  * Composable para carregamento
  */
@@ -227,6 +237,7 @@ export const useLocalStorage = () => {
 
 export default {
   useNotification,
+  useAnalytics,
   useLoading,
   useClipboard,
   useDownload,

@@ -189,12 +189,13 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useClipboard, useNotification } from '@/composables'
+import { useAnalytics, useClipboard, useNotification } from '@/composables'
 
 const generatedCpfs = ref([])
 const outputFormat = ref('formatted')
 const quantityToGenerate = ref(1)
 const cpfToValidate = ref('')
+const { trackEvent } = useAnalytics()
 const { copy } = useClipboard()
 const { notify } = useNotification()
 
@@ -296,7 +297,11 @@ const generateCpfs = () => {
   for (let i = 0; i < quantity; i++) {
     generatedCpfs.value.push(generateValidCpf())
   }
-  
+
+  if (generatedCpfs.value.length > 0) {
+    trackEvent('gerar_cpf', { quantidade: generatedCpfs.value.length })
+  }
+
   if (quantity === 1) {
     notify.success('CPF gerado com sucesso!')
   } else {
@@ -306,15 +311,19 @@ const generateCpfs = () => {
 
 // Função para copiar CPF individual
 const copyCpf = async (cpf) => {
-  await copy(cpf)
-  notify.success('CPF copiado!')
+  if (await copy(cpf)) {
+    trackEvent('copiar_cpf', { metodo: 'individual' })
+    notify.success('CPF copiado!')
+  }
 }
 
 // Função para copiar todos os CPFs
 const copyAll = async () => {
   const text = generatedCpfs.value.join('\n')
-  await copy(text)
-  notify.success('Todos os CPFs copiados!')
+  if (await copy(text)) {
+    trackEvent('copiar_cpf', { metodo: 'todos' })
+    notify.success('Todos os CPFs copiados!')
+  }
 }
 
 // Função para limpar CPFs
